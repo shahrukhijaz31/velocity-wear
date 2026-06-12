@@ -1,0 +1,178 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #04060c;
+  --electric: #1f5fff;
+  --cyan: #22e0ff;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+body {
+  background-color: var(--bg);
+  color: #eaf0ff;
+  font-feature-settings: 'ss01', 'cv01';
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Ambient page background: layered radial glows + fine grid */
+.page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(60% 50% at 80% -5%, rgba(34, 224, 255, 0.16), transparent 60%),
+    radial-gradient(55% 45% at 5% 10%, rgba(31, 95, 255, 0.18), transparent 55%),
+    radial-gradient(50% 50% at 50% 110%, rgba(47, 123, 255, 0.12), transparent 60%),
+    #04060c;
+}
+
+.page-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, #000 35%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, #000 35%, transparent 80%);
+}
+
+/* ---------- Custom scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #04060c;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#1f5fff, #22e0ff);
+  border-radius: 999px;
+  border: 2px solid #04060c;
+}
+
+::selection {
+  background: rgba(34, 224, 255, 0.3);
+  color: #fff;
+}
+
+/* ---------- Component utilities ---------- */
+@layer components {
+  .glass {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.07),
+      rgba(255, 255, 255, 0.02)
+    );
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-strong {
+    background: linear-gradient(
+      135deg,
+      rgba(20, 28, 56, 0.85),
+      rgba(8, 12, 24, 0.7)
+    );
+    backdrop-filter: blur(24px) saturate(140%);
+    -webkit-backdrop-filter: blur(24px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .text-gradient {
+    background: linear-gradient(120deg, #ffffff 0%, #bcd6ff 50%, #22e0ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-electric {
+    background: linear-gradient(120deg, #22e0ff, #2e7bff, #1f5fff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .btn-electric {
+    position: relative;
+    background: linear-gradient(120deg, #22e0ff 0%, #2e7bff 50%, #1f5fff 100%);
+    color: #03060f;
+    box-shadow: 0 8px 30px -8px rgba(47, 123, 255, 0.8);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .btn-electric:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 44px -8px rgba(34, 224, 255, 0.9);
+  }
+  .btn-electric:active {
+    transform: translateY(0);
+  }
+
+  .btn-ghost {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.03);
+    transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+  }
+  .btn-ghost:hover {
+    border-color: rgba(34, 224, 255, 0.7);
+    background: rgba(34, 224, 255, 0.06);
+    transform: translateY(-2px);
+  }
+
+  .chip {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .hairline {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
+@layer utilities {
+  .glow-text {
+    text-shadow: 0 0 24px rgba(34, 224, 255, 0.45);
+  }
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent);
+    mask-image: linear-gradient(to bottom, #000 70%, transparent);
+  }
+  .perspective {
+    perspective: 1200px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
