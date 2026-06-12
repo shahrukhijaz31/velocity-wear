@@ -9,6 +9,7 @@ import Process from '@/components/Process';
 import TrustStats from '@/components/TrustStats';
 import Gallery from '@/components/Gallery';
 import Testimonials from '@/components/Testimonials';
+import JournalTeaser from '@/components/JournalTeaser';
 import CTASection from '@/components/CTASection';
 import Contact from '@/components/Contact';
 import FAQ from '@/components/FAQ';
@@ -74,6 +75,7 @@ export default function Home() {
         <TrustStats />
         <Gallery />
         <Testimonials />
+        <JournalTeaser />
         <CTASection />
         <FAQ
           eyebrow="Questions"

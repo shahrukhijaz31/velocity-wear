@@ -12,7 +12,7 @@ import Reveal from '@/components/ui/Reveal';
 import BlogContent from '@/components/BlogContent';
 import BlogCard from '@/components/BlogCard';
 import {
-  BLOG_AUTHOR, CATEGORIES, formatDate, getAllPosts, getPostBySlug, getRelatedPosts,
+  BLOG_AUTHOR, CATEGORIES, categorySlug, formatDate, getAllPosts, getPostBySlug, getRelatedPosts,
 } from '@/lib/blog';
 import { BRAND, SITE_URL } from '@/lib/site';
 import { altLanguages } from '@/lib/seo';
@@ -135,12 +135,13 @@ export default function BlogPostPage({ params }) {
           <header className="mt-8">
             <Reveal>
               <div className="flex flex-wrap items-center gap-3">
-                <span
-                  className="chip inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em]"
+                <Link
+                  href={`/blogs/category/${categorySlug(post.category)}`}
+                  className="chip inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors hover:border-cyan-glow/40"
                   style={{ color: cat.accent }}
                 >
                   <Icon className="h-3.5 w-3.5" /> {post.category}
-                </span>
+                </Link>
                 <span className="inline-flex items-center gap-1.5 text-xs text-slate-400">
                   <Calendar className="h-3.5 w-3.5" /> {formatDate(post.date)}
                 </span>

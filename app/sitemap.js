@@ -1,5 +1,5 @@
 import { SITE_URL } from '@/lib/site';
-import { getAllPosts } from '@/lib/blog';
+import { categorySlug, getAllCategories, getAllPosts } from '@/lib/blog';
 
 export default function sitemap() {
   const now = new Date();
@@ -32,5 +32,12 @@ export default function sitemap() {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...postRoutes];
+  const categoryRoutes = getAllCategories().map((category) => ({
+    url: `${SITE_URL}/blogs/category/${categorySlug(category)}`,
+    lastModified: now,
+    changeFrequency: 'weekly',
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...categoryRoutes, ...postRoutes];
 }

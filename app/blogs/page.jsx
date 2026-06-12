@@ -2,9 +2,10 @@ import Navbar from '@/components/Navbar';
 import ScrollProgress from '@/components/ScrollProgress';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import Link from 'next/link';
 import Reveal from '@/components/ui/Reveal';
 import BlogSearch from '@/components/BlogSearch';
-import { getAllPosts } from '@/lib/blog';
+import { CATEGORIES, categorySlug, getAllCategories, getAllPosts } from '@/lib/blog';
 import { SITE_URL } from '@/lib/site';
 import { altLanguages } from '@/lib/seo';
 
@@ -92,6 +93,25 @@ export default function BlogIndexPage() {
             </p>
           </Reveal>
         </header>
+
+        {/* Browse by category */}
+        <Reveal className="mt-10">
+          <div className="flex flex-wrap justify-center gap-2.5">
+            {getAllCategories().map((c) => {
+              const oc = CATEGORIES[c] || { accent: '#22e0ff' };
+              return (
+                <Link
+                  key={c}
+                  href={`/blogs/category/${categorySlug(c)}`}
+                  className="chip inline-flex items-center rounded-full px-4 py-2 text-sm font-medium text-slate-200 transition-colors hover:border-cyan-glow/40 hover:text-white"
+                  style={{ borderColor: `${oc.accent}33` }}
+                >
+                  {c}
+                </Link>
+              );
+            })}
+          </div>
+        </Reveal>
 
         {/* Search + listing (client) */}
         <BlogSearch posts={cards} />
