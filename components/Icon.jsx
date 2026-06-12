@@ -89,6 +89,15 @@ const Embroidery = svg(
   </>
 );
 
+const Jacket = svg(
+  <>
+    <path d="M9 3 4.5 5.2 3 11l2.2 1V21h13.6v-9l2.2-1L19.5 5.2 15 3l-3 3z" />
+    <path d="M12 6v15" />
+    <path d="M7.5 12h2.2v3H7.5z" />
+    <path d="M14.3 12h2.2v3h-2.2z" />
+  </>
+);
+
 // Name → component map.
 const MAP = {
   // garments (custom)
@@ -96,6 +105,7 @@ const MAP = {
   tshirt: Tee,
   cap: Cap,
   trousers: Trousers,
+  jacket: Jacket,
   embroidery: Embroidery,
   // garments / services (lucide)
   polo: Shirt,

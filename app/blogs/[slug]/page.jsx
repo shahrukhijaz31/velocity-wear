@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import {
-  ArrowLeft, Boxes, Calendar, Clock, Leaf, PenTool, Printer, Shirt, ShoppingBag,
+  ArrowLeft, Boxes, Calendar, Clock, Layers, Leaf, PenTool, Printer, Shirt, ShoppingBag,
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import ScrollProgress from '@/components/ScrollProgress';
@@ -15,8 +15,9 @@ import {
   BLOG_AUTHOR, CATEGORIES, formatDate, getAllPosts, getPostBySlug, getRelatedPosts,
 } from '@/lib/blog';
 import { BRAND, SITE_URL } from '@/lib/site';
+import { altLanguages } from '@/lib/seo';
 
-const ICONS = { ShoppingBag, Boxes, Shirt, Printer, Leaf, PenTool };
+const ICONS = { ShoppingBag, Boxes, Shirt, Printer, Leaf, PenTool, Layers };
 
 export function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }));
@@ -25,12 +26,12 @@ export function generateStaticParams() {
 export function generateMetadata({ params }) {
   const post = getPostBySlug(params.slug);
   if (!post) return {};
-  const url = `${SITE_URL}/blog/${post.slug}`;
+  const url = `${SITE_URL}/blogs/${post.slug}`;
   return {
     title: post.title,
     description: post.description,
     keywords: post.keywords,
-    alternates: { canonical: url },
+    alternates: { canonical: url, languages: altLanguages(`/blogs/${post.slug}`) },
     openGraph: {
       title: post.title,
       description: post.description,
@@ -55,7 +56,7 @@ export default function BlogPostPage({ params }) {
   const cat = CATEGORIES[post.category] || { icon: 'ShoppingBag', accent: '#22e0ff' };
   const Icon = ICONS[cat.icon] || ShoppingBag;
   const related = getRelatedPosts(post.slug, 3);
-  const url = `${SITE_URL}/blog/${post.slug}`;
+  const url = `${SITE_URL}/blogs/${post.slug}`;
 
   const articleLd = {
     '@context': 'https://schema.org',
@@ -81,7 +82,7 @@ export default function BlogPostPage({ params }) {
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
-      { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE_URL}/blog` },
+      { '@type': 'ListItem', position: 2, name: 'Blogs', item: `${SITE_URL}/blogs` },
       { '@type': 'ListItem', position: 3, name: post.title, item: url },
     ],
   };
@@ -123,7 +124,7 @@ export default function BlogPostPage({ params }) {
           {/* Breadcrumb / back */}
           <Reveal>
             <Link
-              href="/blog"
+              href="/blogs"
               className="inline-flex items-center gap-2 text-sm font-semibold text-slate-400 transition-colors hover:text-cyan-glow"
             >
               <ArrowLeft className="h-4 w-4" /> All articles
@@ -192,7 +193,7 @@ export default function BlogPostPage({ params }) {
               </h2>
               <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-slate-300/80 sm:text-base">
                 Premium custom apparel from a {BRAND.moq}-piece minimum, made and shipped to the
-                UK, USA and worldwide. Send your design for a free, itemised quote.
+                UK, USA, Europe and worldwide. Send your design for a free, itemised quote.
               </p>
               <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
                 <a

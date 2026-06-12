@@ -168,6 +168,34 @@ function Garment({ kind, fab, rim, shine, accent }) {
         </g>
       );
 
+    case 'jacket':
+      return (
+        <g>
+          {/* sleeves + open body */}
+          <path
+            d="M120,84 L84,100 L58,150 L90,170 L100,160 L100,330 H220 V160 L230,170 L262,150 L236,100 L200,84 L160,120 Z"
+            {...common}
+          />
+          {/* collar flaps */}
+          <path d="M120,84 L160,120 L142,150 L130,108 Z" fill="#0c1322" stroke={accent} strokeWidth="1.6" />
+          <path d="M200,84 L160,120 L178,150 L190,108 Z" fill="#0c1322" stroke={accent} strokeWidth="1.6" />
+          {/* center button placket */}
+          <path d="M160,120 L160,330" stroke={accent} strokeWidth="1.6" opacity="0.55" fill="none" />
+          {[168, 198, 228, 258, 288].map((y) => (
+            <circle key={y} cx="160" cy={y} r="2.6" fill={accent} />
+          ))}
+          {/* chest pockets */}
+          <path d="M116,168 H146 V196 H116 Z" fill="none" stroke={accent} strokeWidth="1.5" opacity="0.7" />
+          <path d="M116,168 v-9 h30 v9" fill="none" stroke={accent} strokeWidth="1.5" opacity="0.7" />
+          <path d="M174,168 H204 V196 H174 Z" fill="none" stroke={accent} strokeWidth="1.5" opacity="0.7" />
+          <path d="M174,168 v-9 h30 v9" fill="none" stroke={accent} strokeWidth="1.5" opacity="0.7" />
+          {/* waistband + topstitch */}
+          <path d="M100,308 H220" stroke={accent} strokeWidth="1.6" opacity="0.5" />
+          <path d="M108,150 L108,308 M212,150 L212,308" stroke={accent} strokeWidth="1.1" opacity="0.35" fill="none" />
+          <path d="M86,108 L66,150" stroke={`url(#${shine})`} strokeWidth="8" opacity="0.7" />
+        </g>
+      );
+
     case 'hoodie':
     default:
       return (

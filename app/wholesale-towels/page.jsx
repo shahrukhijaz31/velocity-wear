@@ -23,11 +23,12 @@ const PATH = '/wholesale-towels';
 export const metadata = {
   title: 'Wholesale Towels for Gyms, Spas & Hotels — Small, Medium & Large',
   description:
-    'Wholesale custom towels for gyms, spas and hotels in the UK, USA, Canada & worldwide. Combed-cotton small, medium & large sizes, 400–700 GSM, custom embroidery & woven labels. Bulk pricing from 50 pieces.',
+    'Wholesale custom towels for gyms, spas and hotels in the UK, USA, Europe & worldwide. Combed-cotton small, medium & large sizes, 400–700 GSM, custom embroidery & woven labels. Bulk pricing from 50 pieces.',
   keywords: [
     'wholesale towels',
     'wholesale towels UK',
     'wholesale towels USA',
+    'wholesale towels Europe',
     'wholesale towels Canada',
     'custom gym towels',
     'spa towels bulk',

@@ -7,6 +7,13 @@ const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
+  async redirects() {
+    return [
+      // Old /blog route renamed to /blogs — preserve any existing links.
+      { source: '/blog', destination: '/blogs', permanent: true },
+      { source: '/blog/:slug', destination: '/blogs/:slug', permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

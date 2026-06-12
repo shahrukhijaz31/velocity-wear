@@ -3,28 +3,29 @@ import ScrollProgress from '@/components/ScrollProgress';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import Reveal from '@/components/ui/Reveal';
-import BlogCard from '@/components/BlogCard';
+import BlogSearch from '@/components/BlogSearch';
 import { getAllPosts } from '@/lib/blog';
 import { SITE_URL } from '@/lib/site';
+import { altLanguages } from '@/lib/seo';
 
 export const metadata = {
-  title: 'Blog — Custom Apparel, Hoodies & Ecommerce Insights',
+  title: 'Blogs — Custom Apparel, Hoodies & Ecommerce Insights',
   description:
-    'Guides and insights on custom hoodies, apparel printing, ecommerce and wholesale to the UK, USA and beyond — from starting a hoodie brand to GSM, MOQs, eco fabrics, pricing and shipping.',
+    'Guides and insights on custom hoodies, denim jackets, apparel printing, ecommerce and wholesale to the UK, USA and Europe — from starting a brand to GSM, MOQs, eco fabrics, pricing and shipping.',
   keywords: [
     'custom hoodie blog',
     'apparel printing guides',
     'ecommerce clothing brand tips',
-    'wholesale hoodies UK USA',
+    'wholesale hoodies UK USA Europe',
     'custom apparel insights',
     'streetwear manufacturing',
   ],
-  alternates: { canonical: `${SITE_URL}/blog` },
+  alternates: { canonical: `${SITE_URL}/blogs`, languages: altLanguages('/blogs') },
   openGraph: {
-    title: 'Velocity Wear Blog — Custom Apparel & Ecommerce Insights',
+    title: 'Velocity Wear Blogs — Custom Apparel & Ecommerce Insights',
     description:
-      'Guides on custom hoodies, apparel printing, ecommerce and wholesale to the UK, USA and worldwide.',
-    url: `${SITE_URL}/blog`,
+      'Guides on custom hoodies, denim jackets, apparel printing, ecommerce and wholesale to the UK, USA and Europe.',
+    url: `${SITE_URL}/blogs`,
     siteName: 'Velocity Wear',
     type: 'website',
   },
@@ -32,22 +33,32 @@ export const metadata = {
 
 export default function BlogIndexPage() {
   const posts = getAllPosts();
-  const [featured, ...rest] = posts;
+
+  // Trimmed, serializable list for the client-side search component.
+  const cards = posts.map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    excerpt: p.excerpt,
+    category: p.category,
+    date: p.date,
+    readMins: p.readMins,
+    keywords: p.keywords,
+  }));
 
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Blog',
     name: 'Velocity Wear Blog',
     description:
-      'Guides and insights on custom hoodies, apparel printing, ecommerce and wholesale to the UK, USA and worldwide.',
-    url: `${SITE_URL}/blog`,
+      'Guides and insights on custom hoodies, denim jackets, apparel printing, ecommerce and wholesale to the UK, USA and Europe.',
+    url: `${SITE_URL}/blogs`,
     publisher: { '@type': 'Organization', name: 'Velocity Wear', url: SITE_URL },
     blogPost: posts.map((p) => ({
       '@type': 'BlogPosting',
       headline: p.title,
       description: p.description,
       datePublished: p.date,
-      url: `${SITE_URL}/blog/${p.slug}`,
+      url: `${SITE_URL}/blogs/${p.slug}`,
     })),
   };
 
@@ -76,27 +87,14 @@ export default function BlogIndexPage() {
           </Reveal>
           <Reveal delay={0.12}>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-300/80 sm:text-lg">
-              Practical guides on custom hoodies, printing, branding and selling apparel —
-              with a wholesale lens for brands shipping to the UK, USA and worldwide.
+              Practical guides on custom hoodies, denim, printing, branding and selling apparel —
+              with a wholesale lens for brands shipping to the UK, USA and Europe.
             </p>
           </Reveal>
         </header>
 
-        {/* Featured post */}
-        {featured && (
-          <Reveal className="mt-16" delay={0.05}>
-            <BlogCard post={featured} featured />
-          </Reveal>
-        )}
-
-        {/* Grid */}
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {rest.map((post, i) => (
-            <Reveal key={post.slug} delay={0.04 * (i % 3)}>
-              <BlogCard post={post} />
-            </Reveal>
-          ))}
-        </div>
+        {/* Search + listing (client) */}
+        <BlogSearch posts={cards} />
 
         {/* CTA */}
         <Reveal className="mt-20">
@@ -107,7 +105,7 @@ export default function BlogIndexPage() {
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-slate-300/80">
               Turn any of these ideas into product. Premium fabric, a 20-piece minimum and
-              tracked delivery to the UK, USA and worldwide.
+              tracked delivery to the UK, USA, Europe and worldwide.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <a

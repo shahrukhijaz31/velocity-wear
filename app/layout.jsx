@@ -28,16 +28,21 @@ const grotesk = Space_Grotesk({
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Velocity Wear — Custom Apparel & Wholesale Towels | UK, USA, Canada',
+    default: 'Velocity Wear — Premium Custom Apparel & Wholesale Towels | UK, USA & Europe',
     template: '%s | Velocity Wear',
   },
   description:
-    'Premium custom apparel printing & wholesale towels — hoodies, polos, t-shirts, caps, trousers, corporate uniforms & towels for gyms, spas & hotels. Screen print, embroidery, DTF & sublimation. MOQ 20. Worldwide delivery to the UK, USA, Canada & beyond.',
+    'Premium custom apparel & wholesale towels — hoodies, t-shirts, shirts, caps, trousers, denim jackets, corporate uniforms & towels for gyms, spas & hotels. Screen print, embroidery, DTF & sublimation. MOQ 20. Wholesale delivery to the UK, USA, Europe & worldwide.',
   applicationName: 'Velocity Wear',
   keywords: [
     'custom apparel printing',
-    'custom hoodies UK USA Canada',
-    'custom t-shirts',
+    'premium custom hoodies',
+    'custom hoodies UK USA Europe',
+    'custom t-shirts wholesale',
+    'custom caps',
+    'custom trousers',
+    'custom denim jackets',
+    'wholesale clothing UK USA Europe',
     'custom clothing manufacturer',
     'screen printing',
     'embroidery services',
@@ -60,14 +65,14 @@ export const metadata = {
     languages: altLanguages('/'),
   },
   openGraph: {
-    title: 'Velocity Wear — Custom Apparel & Wholesale Towels',
+    title: 'Velocity Wear — Premium Custom Apparel & Wholesale Towels',
     description:
-      'Premium custom apparel printing and wholesale towels for gyms, spas & hotels. MOQ 20. Worldwide delivery incl. UK, USA & Canada.',
+      'Premium custom hoodies, shirts, caps, trousers, denim jackets & wholesale towels. MOQ 20. Wholesale delivery to the UK, USA & Europe.',
     url: abs('/'),
     siteName: 'Velocity Wear',
     type: 'website',
     locale: 'en_US',
-    alternateLocale: ['en_GB', 'en_CA', 'en_AU'],
+    alternateLocale: ['en_GB', 'en_IE', 'en_DE', 'en_FR', 'en_CA', 'en_AU'],
     images: [
       { url: abs('/og-image.png'), width: 1200, height: 630, alt: 'Velocity Wear — Custom Apparel & Wholesale Towels' },
     ],

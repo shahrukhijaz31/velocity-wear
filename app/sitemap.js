@@ -18,7 +18,7 @@ export default function sitemap() {
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/blog`,
+      url: `${SITE_URL}/blogs`,
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.8,
@@ -26,7 +26,7 @@ export default function sitemap() {
   ];
 
   const postRoutes = getAllPosts().map((post) => ({
-    url: `${SITE_URL}/blog/${post.slug}`,
+    url: `${SITE_URL}/blogs/${post.slug}`,
     lastModified: new Date(post.date),
     changeFrequency: 'monthly',
     priority: 0.7,

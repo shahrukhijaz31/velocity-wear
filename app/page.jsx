@@ -22,7 +22,7 @@ import {
 export const metadata = {
   title: 'Custom Apparel Printing & Wholesale Towels',
   description:
-    'Velocity Wear designs & prints premium custom apparel — hoodies, t-shirts, polos, caps, trousers, uniforms — plus wholesale towels for gyms, spas & hotels. MOQ 20. Screen print, embroidery, DTF & sublimation. Worldwide delivery to the UK, USA, Canada & more.',
+    'Velocity Wear designs & prints premium custom apparel — hoodies, t-shirts, polos, caps, trousers, denim jackets, uniforms — plus wholesale towels for gyms, spas & hotels. MOQ 20. Screen print, embroidery, DTF & sublimation. Wholesale delivery to the UK, USA, Europe & more.',
   alternates: { canonical: abs('/'), languages: altLanguages('/') },
 };
 
@@ -35,7 +35,7 @@ const jsonLd = graph([
     provider: { '@id': `${SITE_URL}/#organization` },
     areaServed,
     description:
-      'Custom printed and embroidered hoodies, t-shirts, polos, caps, trousers, corporate uniforms and bulk merchandise with a 20-piece minimum order.',
+      'Premium custom printed and embroidered hoodies, t-shirts, polos, caps, trousers, denim jackets, corporate uniforms and bulk merchandise with a 20-piece minimum order, shipped to the UK, USA and Europe.',
     offers: {
       '@type': 'Offer',
       eligibleQuantity: { '@type': 'QuantitativeValue', minValue: 20, unitText: 'pieces' },
@@ -46,8 +46,8 @@ const jsonLd = graph([
       name: 'Custom Apparel Services',
       itemListElement: [
         'Custom Hoodies', 'Custom T-Shirts', 'Custom Polo Shirts', 'Custom Caps',
-        'Custom Trousers', 'Corporate Uniforms', 'Screen Printing', 'Embroidery',
-        'DTF Printing', 'Sublimation Printing',
+        'Custom Trousers', 'Custom Denim Jackets', 'Corporate Uniforms', 'Screen Printing',
+        'Embroidery', 'DTF Printing', 'Sublimation Printing',
       ].map((name) => ({
         '@type': 'Offer',
         itemOffered: { '@type': 'Service', name },
@@ -79,7 +79,7 @@ export default function Home() {
           eyebrow="Questions"
           title="Custom Apparel,"
           highlight="Answered"
-          subtitle="Everything brands, gyms and businesses in the UK, USA, Canada and worldwide ask before ordering."
+          subtitle="Everything brands, gyms and businesses in the UK, USA, Europe and worldwide ask before ordering."
           items={FAQ_HOME}
         />
         <Contact />

@@ -9,10 +9,10 @@ const COLS = [
     title: 'Services',
     links: [
       { label: 'Custom Hoodies', href: '/#services' },
+      { label: 'Custom Denim Jackets', href: '/#services' },
       { label: 'Screen Printing', href: '/#services' },
       { label: 'Embroidery', href: '/#services' },
       { label: 'DTF Printing', href: '/#services' },
-      { label: 'Sublimation', href: '/#services' },
     ],
   },
   {
@@ -20,7 +20,7 @@ const COLS = [
     links: [
       { label: 'Products', href: '/#products' },
       { label: 'Wholesale Towels', href: '/wholesale-towels' },
-      { label: 'Blog', href: '/blog' },
+      { label: 'Blogs', href: '/blogs' },
       { label: 'Gallery', href: '/#gallery' },
       { label: 'Process', href: '/#process' },
     ],

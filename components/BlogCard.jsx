@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { ArrowUpRight, Boxes, Clock, Leaf, PenTool, Printer, Shirt, ShoppingBag } from 'lucide-react';
+import { ArrowUpRight, Boxes, Clock, Layers, Leaf, PenTool, Printer, Shirt, ShoppingBag } from 'lucide-react';
 import { CATEGORIES, formatDate } from '@/lib/blog';
 
-const ICONS = { ShoppingBag, Boxes, Shirt, Printer, Leaf, PenTool };
+const ICONS = { ShoppingBag, Boxes, Shirt, Printer, Leaf, PenTool, Layers };
 
 export default function BlogCard({ post, featured = false }) {
   const cat = CATEGORIES[post.category] || { icon: 'ShoppingBag', accent: '#22e0ff' };
@@ -10,7 +10,7 @@ export default function BlogCard({ post, featured = false }) {
 
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={`/blogs/${post.slug}`}
       className={`group glass relative flex flex-col overflow-hidden rounded-3xl border border-white/10 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-glow/40 sm:p-7 ${
         featured ? 'lg:flex-row lg:items-stretch lg:gap-8' : ''
       }`}
