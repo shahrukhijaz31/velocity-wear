@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { ArrowUpRight, Boxes, Clock, Layers, Leaf, PenTool, Printer, Shirt, ShoppingBag } from 'lucide-react';
+import { ArrowUpRight, Boxes, Briefcase, Clock, Crown, Droplets, Layers, Leaf, PenTool, Printer, Shirt, ShoppingBag } from 'lucide-react';
 import { CATEGORIES, formatDate } from '@/lib/blog';
 
-const ICONS = { ShoppingBag, Boxes, Shirt, Printer, Leaf, PenTool, Layers };
+const ICONS = { ShoppingBag, Boxes, Shirt, Printer, Leaf, PenTool, Layers, Crown, Briefcase, Droplets };
 
 export default function BlogCard({ post, featured = false }) {
   const cat = CATEGORIES[post.category] || { icon: 'ShoppingBag', accent: '#22e0ff' };

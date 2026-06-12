@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import {
-  ArrowLeft, Boxes, Calendar, Clock, Layers, Leaf, PenTool, Printer, Shirt, ShoppingBag,
+  ArrowLeft, Boxes, Briefcase, Calendar, Clock, Crown, Droplets, Layers, Leaf, PenTool, Printer, Shirt, ShoppingBag,
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import ScrollProgress from '@/components/ScrollProgress';
@@ -17,7 +17,7 @@ import {
 import { BRAND, SITE_URL } from '@/lib/site';
 import { altLanguages } from '@/lib/seo';
 
-const ICONS = { ShoppingBag, Boxes, Shirt, Printer, Leaf, PenTool, Layers };
+const ICONS = { ShoppingBag, Boxes, Shirt, Printer, Leaf, PenTool, Layers, Crown, Briefcase, Droplets };
 
 export function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }));
