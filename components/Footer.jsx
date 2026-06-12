@@ -7,15 +7,27 @@ import { BRAND, NAV_LINKS } from '@/lib/site';
 const COLS = [
   {
     title: 'Services',
-    links: ['Custom Hoodies', 'Screen Printing', 'Embroidery', 'DTF Printing', 'Sublimation'],
+    links: [
+      { label: 'Custom Hoodies', href: '/#services' },
+      { label: 'Screen Printing', href: '/#services' },
+      { label: 'Embroidery', href: '/#services' },
+      { label: 'DTF Printing', href: '/#services' },
+      { label: 'Sublimation', href: '/#services' },
+    ],
   },
   {
-    title: 'Products',
-    links: ['Hoodies', 'Caps', 'Polo Shirts', 'T-Shirts', 'Trousers'],
+    title: 'Explore',
+    links: [
+      { label: 'Products', href: '/#products' },
+      { label: 'Wholesale Towels', href: '/wholesale-towels' },
+      { label: 'Blog', href: '/blog' },
+      { label: 'Gallery', href: '/#gallery' },
+      { label: 'Process', href: '/#process' },
+    ],
   },
   {
     title: 'Company',
-    links: NAV_LINKS.map((l) => l.label),
+    links: NAV_LINKS,
   },
 ];
 
@@ -56,13 +68,13 @@ export default function Footer() {
               <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white">{col.title}</h4>
               <ul className="mt-5 space-y-3">
                 {col.links.map((link) => (
-                  <li key={link}>
+                  <li key={link.label}>
                     <a
-                      href="#"
+                      href={link.href}
                       className="group inline-flex items-center text-sm text-slate-400 transition-colors hover:text-white"
                     >
                       <span className="mr-0 h-px w-0 bg-cyan-glow transition-all duration-300 group-hover:mr-2 group-hover:w-4" />
-                      {link}
+                      {link.label}
                     </a>
                   </li>
                 ))}
