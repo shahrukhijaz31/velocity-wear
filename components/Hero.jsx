@@ -57,7 +57,7 @@ export default function Hero() {
       <div className="absolute inset-0 -z-10 opacity-90">
         <Hero3D />
       </div>
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_50%_40%,transparent,rgba(4,6,12,0.6)_75%,rgba(4,6,12,0.95))]" />
+      <div className="hero-vignette pointer-events-none absolute inset-0 -z-10" />
 
       {/* Floating garment mockups (parallax) */}
       <FloatingCard mx={mx} my={my} depth={1.4} className="left-[3%] top-[18%] hidden w-44 xl:block">

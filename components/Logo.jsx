@@ -11,8 +11,7 @@ export default function Logo({ className = 'h-11', priority = false }) {
       draggable={false}
       loading={priority ? 'eager' : 'lazy'}
       fetchPriority={priority ? 'high' : 'auto'}
-      className={`${className} w-auto select-none`}
-      style={{ filter: 'drop-shadow(0 0 14px rgba(34,224,255,0.28))' }}
+      className={`site-logo ${className} w-auto select-none`}
     />
   );
 }

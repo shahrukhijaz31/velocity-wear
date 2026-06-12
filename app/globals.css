@@ -2,10 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ----------------------------------------------------------------- */
+/*  THEME TOKENS                                                       */
+/*  Dark is the default. `html.light` flips the same token set, so     */
+/*  the whole site re-themes from these variables + the scoped         */
+/*  utility overrides at the bottom of this file.                      */
+/* ----------------------------------------------------------------- */
 :root {
   --bg: #04060c;
+  --fg: #eaf0ff;
   --electric: #1f5fff;
   --cyan: #22e0ff;
+
+  --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+  --glass-strong-bg: linear-gradient(135deg, rgba(20, 28, 56, 0.85), rgba(8, 12, 24, 0.7));
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  --chip-bg: rgba(255, 255, 255, 0.04);
+  --chip-border: rgba(255, 255, 255, 0.1);
+
+  --ghost-bg: rgba(255, 255, 255, 0.03);
+  --ghost-border: rgba(255, 255, 255, 0.18);
+
+  --scrollbar-track: #04060c;
+
+  --page-bg:
+    radial-gradient(60% 50% at 80% -5%, rgba(34, 224, 255, 0.16), transparent 60%),
+    radial-gradient(55% 45% at 5% 10%, rgba(31, 95, 255, 0.18), transparent 55%),
+    radial-gradient(50% 50% at 50% 110%, rgba(47, 123, 255, 0.12), transparent 60%),
+    #04060c;
+  --grid-line: rgba(255, 255, 255, 0.035);
+
+  --hero-vignette: radial-gradient(
+    60% 50% at 50% 40%,
+    transparent,
+    rgba(4, 6, 12, 0.6) 75%,
+    rgba(4, 6, 12, 0.95)
+  );
+}
+
+html.light {
+  --bg: #eef1f8;
+  --fg: #0c1424;
+
+  --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.62));
+  --glass-strong-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(235, 240, 250, 0.88));
+  --glass-border: rgba(12, 20, 36, 0.1);
+
+  --chip-bg: rgba(12, 20, 36, 0.04);
+  --chip-border: rgba(12, 20, 36, 0.12);
+
+  --ghost-bg: rgba(12, 20, 36, 0.03);
+  --ghost-border: rgba(12, 20, 36, 0.16);
+
+  --scrollbar-track: #e4e9f3;
+
+  --page-bg:
+    radial-gradient(60% 50% at 80% -5%, rgba(34, 224, 255, 0.12), transparent 60%),
+    radial-gradient(55% 45% at 5% 10%, rgba(31, 95, 255, 0.12), transparent 55%),
+    radial-gradient(50% 50% at 50% 110%, rgba(47, 123, 255, 0.1), transparent 60%),
+    #eef1f8;
+  --grid-line: rgba(12, 20, 36, 0.05);
+
+  --hero-vignette: radial-gradient(
+    60% 50% at 50% 40%,
+    rgba(238, 241, 248, 0.12),
+    rgba(238, 241, 248, 0.6) 72%,
+    rgba(238, 241, 248, 0.93)
+  );
 }
 
 * {
@@ -31,11 +95,12 @@ html {
 
 body {
   background-color: var(--bg);
-  color: #eaf0ff;
+  color: var(--fg);
   font-feature-settings: 'ss01', 'cv01';
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* Ambient page background: layered radial glows + fine grid */
@@ -43,11 +108,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: -2;
-  background:
-    radial-gradient(60% 50% at 80% -5%, rgba(34, 224, 255, 0.16), transparent 60%),
-    radial-gradient(55% 45% at 5% 10%, rgba(31, 95, 255, 0.18), transparent 55%),
-    radial-gradient(50% 50% at 50% 110%, rgba(47, 123, 255, 0.12), transparent 60%),
-    #04060c;
+  background: var(--page-bg);
 }
 
 .page-grid {
@@ -55,11 +116,16 @@ body {
   inset: 0;
   z-index: -1;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, #000 35%, transparent 80%);
   -webkit-mask-image: radial-gradient(ellipse 100% 70% at 50% 0%, #000 35%, transparent 80%);
+}
+
+/* Hero radial vignette — theme-aware (replaces a hard-coded dark gradient) */
+.hero-vignette {
+  background: var(--hero-vignette);
 }
 
 /* ---------- Custom scrollbar ---------- */
@@ -67,12 +133,12 @@ body {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #04060c;
+  background: var(--scrollbar-track);
 }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(#1f5fff, #22e0ff);
   border-radius: 999px;
-  border: 2px solid #04060c;
+  border: 2px solid var(--scrollbar-track);
 }
 
 ::selection {
@@ -83,25 +149,17 @@ body {
 /* ---------- Component utilities ---------- */
 @layer components {
   .glass {
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.07),
-      rgba(255, 255, 255, 0.02)
-    );
+    background: var(--glass-bg);
     backdrop-filter: blur(18px) saturate(140%);
     -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--glass-border);
   }
 
   .glass-strong {
-    background: linear-gradient(
-      135deg,
-      rgba(20, 28, 56, 0.85),
-      rgba(8, 12, 24, 0.7)
-    );
+    background: var(--glass-strong-bg);
     backdrop-filter: blur(24px) saturate(140%);
     -webkit-backdrop-filter: blur(24px) saturate(140%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--glass-border);
   }
 
   .text-gradient {
@@ -134,8 +192,8 @@ body {
   }
 
   .btn-ghost {
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--ghost-border);
+    background: var(--ghost-bg);
     transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
   }
   .btn-ghost:hover {
@@ -145,12 +203,12 @@ body {
   }
 
   .chip {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--chip-border);
+    background: var(--chip-bg);
   }
 
   .hairline {
-    border-color: rgba(255, 255, 255, 0.08);
+    border-color: var(--glass-border);
   }
 }
 
@@ -175,4 +233,68 @@ body {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+}
+
+/* ----------------------------------------------------------------- */
+/*  LIGHT-MODE UTILITY OVERRIDES                                       */
+/*  The components are dark-first (text-white, white/x overlays).      */
+/*  Under `html.light` we remap those literal utilities so the same    */
+/*  markup reads correctly on a light surface. Accent colours          */
+/*  (cyan/electric) are intentionally left untouched.                  */
+/* ----------------------------------------------------------------- */
+
+/* Text */
+html.light .text-white { color: #0c1424; }
+html.light .text-slate-100 { color: #18202f; }
+html.light .text-slate-200,
+html.light .text-slate-200\/80,
+html.light .text-slate-200\/90 { color: #232c3c; }
+html.light .text-slate-300,
+html.light .text-slate-300\/80,
+html.light .text-slate-300\/85 { color: #3a4254; }
+html.light .text-slate-400,
+html.light .text-slate-400\/70 { color: #586173; }
+html.light .text-slate-500 { color: #6b7488; }
+html.light .text-gradient {
+  background-image: linear-gradient(120deg, #0c1424 0%, #1f5fff 60%, #22e0ff 100%);
+}
+
+/* Surfaces — white overlays become subtle dark overlays */
+html.light .bg-white\/\[0\.02\] { background-color: rgba(12, 20, 36, 0.025); }
+html.light .bg-white\/\[0\.03\] { background-color: rgba(12, 20, 36, 0.035); }
+html.light .bg-white\/5 { background-color: rgba(12, 20, 36, 0.05); }
+html.light .bg-white\/10 { background-color: rgba(12, 20, 36, 0.07); }
+html.light .bg-white\/15 { background-color: rgba(12, 20, 36, 0.1); }
+html.light .bg-white\/20 { background-color: rgba(12, 20, 36, 0.14); }
+html.light .bg-white\/40 { background-color: rgba(12, 20, 36, 0.22); }
+
+/* Dark overlays become light overlays */
+html.light .bg-black\/30 { background-color: rgba(255, 255, 255, 0.55); }
+html.light .bg-black\/80 { background-color: rgba(255, 255, 255, 0.82); }
+
+/* Ink surfaces (footer, form controls, badges) */
+html.light .bg-ink-700 { background-color: #e9edf6; }
+html.light .bg-ink-800\/60 { background-color: rgba(233, 237, 246, 0.7); }
+
+/* Borders */
+html.light .border-white\/5 { border-color: rgba(12, 20, 36, 0.06); }
+html.light .border-white\/10 { border-color: rgba(12, 20, 36, 0.1); }
+html.light .border-white\/15 { border-color: rgba(12, 20, 36, 0.14); }
+html.light .border-white\/20 { border-color: rgba(12, 20, 36, 0.16); }
+html.light .border-white\/25 { border-color: rgba(12, 20, 36, 0.2); }
+
+/* Dividers */
+html.light .divide-white\/10 > :not([hidden]) ~ :not([hidden]) {
+  border-color: rgba(12, 20, 36, 0.1);
+}
+
+/* Form placeholders */
+html.light ::placeholder { color: #8a93a5; }
+
+/* Logo — pale-cyan wordmark; darken & saturate so it stays legible on light */
+.site-logo {
+  filter: drop-shadow(0 0 14px rgba(34, 224, 255, 0.28));
+}
+html.light .site-logo {
+  filter: brightness(0.6) saturate(2) drop-shadow(0 0 8px rgba(31, 95, 255, 0.22));
 }

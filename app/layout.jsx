@@ -101,7 +101,10 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: '#04060c',
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#04060c' },
+    { media: '(prefers-color-scheme: light)', color: '#eef1f8' },
+  ],
   width: 'device-width',
   initialScale: 1,
 };
@@ -120,13 +123,18 @@ const jsonLd = graph([
   },
 ]);
 
+// Applies the saved/system theme before first paint to avoid a flash.
+const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches)?'light':'dark';}if(t==='light'){document.documentElement.classList.add('light');}}catch(e){}})();`;
+
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${anton.variable} ${epilogue.variable} ${grotesk.variable}`}
     >
       <body className="font-sans antialiased">
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         {/* No-JS fallback: ensure animated content is never stuck invisible */}
         <noscript>
           <style>{`[style*="opacity:0"],[style*="opacity: 0"]{opacity:1!important;transform:none!important}`}</style>

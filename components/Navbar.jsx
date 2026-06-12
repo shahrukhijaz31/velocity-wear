@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X, MessageCircle } from 'lucide-react';
 import Logo from './Logo';
+import ThemeToggle from './ThemeToggle';
 import { NAV_LINKS, BRAND } from '@/lib/site';
 
 export default function Navbar() {
@@ -57,6 +58,7 @@ export default function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-3 lg:flex">
+          <ThemeToggle />
           <a
             href={BRAND.whatsappLink}
             target="_blank"
@@ -74,14 +76,17 @@ export default function Navbar() {
           </a>
         </div>
 
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="btn-ghost inline-flex h-11 w-11 items-center justify-center rounded-xl text-white lg:hidden"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="btn-ghost inline-flex h-11 w-11 items-center justify-center rounded-xl text-white"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </nav>
 
       <AnimatePresence>
