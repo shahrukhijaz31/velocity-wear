@@ -40,7 +40,7 @@ export default function Navbar() {
         }`}
       >
         <a href="/" className="flex items-center" aria-label="Velocity Wear home">
-          <Logo priority className="h-16 sm:h-20" />
+          <Logo priority reveal className="h-16 sm:h-20" />
         </a>
 
         <ul className="hidden items-center gap-1 lg:flex">

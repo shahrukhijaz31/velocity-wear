@@ -3,16 +3,23 @@
 import { motion } from 'framer-motion';
 import Icon from './Icon';
 import SectionHeading from './ui/SectionHeading';
+import { useTilt } from './ui/useTilt';
 import { SERVICES } from '@/lib/site';
 
 function ServiceCard({ service, index }) {
+  const tilt = useTilt(7);
   return (
     <motion.article
+      ref={tilt.ref}
+      onMouseMove={tilt.onMouseMove}
+      onMouseLeave={tilt.onMouseLeave}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -6 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.55, delay: (index % 4) * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative overflow-hidden rounded-2xl glass p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-cyan-glow/40"
+      style={tilt.style}
+      className="group relative overflow-hidden rounded-2xl glass p-6 transition-colors duration-300 will-change-transform [transform-style:preserve-3d] hover:border-cyan-glow/40"
     >
       {/* hover glow */}
       <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-electric-500/30 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100" />

@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X, Maximize2, ArrowUpRight } from 'lucide-react';
 import GarmentMockup from './GarmentMockup';
 import SectionHeading from './ui/SectionHeading';
+import { useTilt } from './ui/useTilt';
 import { GALLERY } from '@/lib/site';
 
 // Explicit bento placement (lg = 3-col). Mobile/tablet fall back to a clean
@@ -19,6 +20,45 @@ const PLACE = [
 ];
 
 const ACCENTS = ['#22e0ff', '#2e7bff', '#4f9dff', '#22e0ff', '#2e7bff', '#1f5fff'];
+
+function GalleryTile({ g, i, onOpen }) {
+  const tilt = useTilt(7);
+  return (
+    <motion.button
+      ref={tilt.ref}
+      onClick={() => onOpen(i)}
+      onMouseMove={tilt.onMouseMove}
+      onMouseLeave={tilt.onMouseLeave}
+      initial={{ opacity: 0, scale: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, delay: (i % 3) * 0.07 }}
+      style={tilt.style}
+      className={`group relative h-full w-full overflow-hidden rounded-2xl glass text-left transition-colors duration-300 will-change-transform [transform-style:preserve-3d] hover:border-cyan-glow/40 ${PLACE[i]}`}
+    >
+      <div
+        className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110"
+        style={{ background: `radial-gradient(circle at 50% 35%, ${ACCENTS[i]}1f, transparent 70%)` }}
+      >
+        <GarmentMockup kind={g.kind} accent={ACCENTS[i]} className="h-full w-full p-4" />
+      </div>
+
+      <div className="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-ink-900/10 to-transparent" />
+
+      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-4">
+        <div className="translate-y-1 transition-transform duration-300 group-hover:translate-y-0">
+          <span className="text-[10px] font-semibold uppercase tracking-widest text-cyan-glow">
+            {g.cat}
+          </span>
+          <h3 className="text-base font-bold leading-tight text-white sm:text-lg">{g.title}</h3>
+        </div>
+        <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/30 text-white opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100">
+          <Maximize2 className="h-4 w-4" />
+        </span>
+      </div>
+    </motion.button>
+  );
+}
 
 export default function Gallery() {
   const [active, setActive] = useState(null);
@@ -47,36 +87,7 @@ export default function Gallery() {
 
       <div className="mt-14 grid auto-rows-[180px] grid-cols-2 gap-4 sm:auto-rows-[210px] lg:grid-cols-3">
         {GALLERY.map((g, i) => (
-          <motion.button
-            key={g.title}
-            onClick={() => setActive(i)}
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.5, delay: (i % 3) * 0.07 }}
-            className={`group relative h-full w-full overflow-hidden rounded-2xl glass text-left transition-all duration-300 hover:border-cyan-glow/40 ${PLACE[i]}`}
-          >
-            <div
-              className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-110"
-              style={{ background: `radial-gradient(circle at 50% 35%, ${ACCENTS[i]}1f, transparent 70%)` }}
-            >
-              <GarmentMockup kind={g.kind} accent={ACCENTS[i]} className="h-full w-full p-4" />
-            </div>
-
-            <div className="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-ink-900/10 to-transparent" />
-
-            <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-4">
-              <div className="translate-y-1 transition-transform duration-300 group-hover:translate-y-0">
-                <span className="text-[10px] font-semibold uppercase tracking-widest text-cyan-glow">
-                  {g.cat}
-                </span>
-                <h3 className="text-base font-bold leading-tight text-white sm:text-lg">{g.title}</h3>
-              </div>
-              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/30 text-white opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100">
-                <Maximize2 className="h-4 w-4" />
-              </span>
-            </div>
-          </motion.button>
+          <GalleryTile key={g.title} g={g} i={i} onOpen={setActive} />
         ))}
       </div>
 

@@ -38,7 +38,7 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <Logo className="h-24" />
+            <Logo reveal className="h-24" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-slate-400">
               {BRAND.tagline} — premium custom apparel printing & manufacturing for brands that
               refuse to blend in. MOQ {BRAND.moq} pieces.
