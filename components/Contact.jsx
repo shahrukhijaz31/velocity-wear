@@ -44,7 +44,7 @@ export default function Contact() {
     return e;
   };
 
-  const onSubmit = (ev) => {
+  const onSubmit = async (ev) => {
     ev.preventDefault();
     const e = validate();
     setErrors(e);
@@ -54,8 +54,21 @@ export default function Contact() {
       return;
     }
     setStatus('loading');
-    // No backend wired — simulate a successful submission.
-    setTimeout(() => setStatus('success'), 1400);
+    try {
+      const res = await fetch('/api/submissions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...values, source: 'quote' }),
+      });
+      if (!res.ok) throw new Error();
+      setStatus('success');
+    } catch {
+      setStatus('idle');
+      setErrors((prev) => ({
+        ...prev,
+        _submit: 'Could not send your request right now. Please try again, or message us on WhatsApp.',
+      }));
+    }
   };
 
   const inputBase =
@@ -199,6 +212,12 @@ export default function Contact() {
               <div aria-live="polite" className="sr-only">
                 {status === 'loading' ? 'Submitting your request' : ''}
               </div>
+
+              {errors._submit && (
+                <p role="alert" className="mt-5 rounded-xl border border-red-400/30 bg-red-400/5 p-3 text-sm font-medium text-red-300">
+                  {errors._submit}
+                </p>
+              )}
 
               <button
                 type="submit"

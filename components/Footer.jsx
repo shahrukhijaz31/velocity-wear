@@ -2,6 +2,7 @@
 
 import { Instagram, MessageCircle, Mail, ArrowUp } from 'lucide-react';
 import LogoMark from './LogoMark';
+import NewsletterForm from './NewsletterForm';
 import { BRAND, NAV_LINKS } from '@/lib/site';
 
 const COLS = [
@@ -61,6 +62,8 @@ export default function Footer() {
                 </a>
               ))}
             </div>
+
+            <NewsletterForm />
           </div>
 
           {COLS.map((col) => (

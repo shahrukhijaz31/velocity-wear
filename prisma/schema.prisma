@@ -1,0 +1,72 @@
+// Prisma schema for Velocity Wear admin.
+// Uses Vercel Postgres (Neon) env vars, injected automatically by Vercel:
+//   POSTGRES_PRISMA_URL      -> pooled connection (app queries)
+//   POSTGRES_URL_NON_POOLING -> direct connection (migrations / db push)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+// Admin accounts (email + password login).
+model AdminUser {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String // bcrypt hash
+  createdAt DateTime @default(now())
+}
+
+// Quote / contact form submissions (leads).
+model Submission {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  phone       String?
+  company     String?
+  productType String?
+  quantity    String?
+  message     String?
+  source      String   @default("quote")
+  status      String   @default("new") // new | read | archived
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+// Newsletter / email signups.
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  source    String?  @default("newsletter")
+  createdAt DateTime @default(now())
+}
+
+// Blog CMS posts (managed from the admin).
+model Post {
+  id         String   @id @default(cuid())
+  slug       String   @unique
+  title      String
+  excerpt    String?
+  category   String?
+  body       String? // HTML / markdown
+  keywords   String? // comma-separated
+  readMins   Int      @default(5)
+  published  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([published, createdAt])
+}
+
+// Editable site content (e.g. products / wholesale copy) as keyed JSON.
+model ContentSetting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+}
