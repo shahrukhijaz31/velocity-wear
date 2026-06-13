@@ -12,6 +12,12 @@ export default function sitemap() {
       priority: 1,
     },
     {
+      url: `${SITE_URL}/wholesale`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
       url: `${SITE_URL}/wholesale-towels`,
       lastModified: now,
       changeFrequency: 'weekly',

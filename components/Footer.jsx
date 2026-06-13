@@ -18,11 +18,11 @@ const COLS = [
   {
     title: 'Explore',
     links: [
-      { label: 'Products', href: '/#products' },
+      { label: 'Wholesale', href: '/wholesale' },
       { label: 'Wholesale Towels', href: '/wholesale-towels' },
+      { label: 'Products', href: '/#products' },
       { label: 'Blogs', href: '/blogs' },
       { label: 'Gallery', href: '/#gallery' },
-      { label: 'Process', href: '/#process' },
     ],
   },
   {
