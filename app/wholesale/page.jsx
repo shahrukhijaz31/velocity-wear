@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import ScrollProgress from '@/components/ScrollProgress';
 import Footer from '@/components/Footer';
@@ -127,13 +128,19 @@ export default function WholesalePage() {
             {WHOLESALE_PRODUCTS.map((p, i) => (
               <Reveal key={p.name} delay={0.04 * (i % 4)}>
                 <TiltCard max={8} className="h-full">
-                  <div className="group h-full rounded-2xl glass p-6 transition-colors duration-300 hover:border-cyan-glow/40">
+                  <Link
+                    href={p.href}
+                    className="group block h-full rounded-2xl glass p-6 transition-colors duration-300 hover:border-cyan-glow/40"
+                  >
                     <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent text-cyan-glow transition-transform duration-300 group-hover:scale-110">
                       <Icon name={p.icon} className="h-7 w-7" />
                     </div>
-                    <h3 className="text-lg font-bold text-white">{p.name}</h3>
+                    <h3 className="text-lg font-bold text-white transition-colors group-hover:text-electric">{p.name}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-slate-400">{p.desc}</p>
-                  </div>
+                    <span className="mt-4 inline-block text-xs font-semibold uppercase tracking-wider text-cyan-glow opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      View wholesale →
+                    </span>
+                  </Link>
                 </TiltCard>
               </Reveal>
             ))}

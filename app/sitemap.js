@@ -1,5 +1,6 @@
 import { SITE_URL } from '@/lib/site';
 import { categorySlug, getAllCategories, getAllPosts } from '@/lib/blog';
+import { wholesaleSlugs } from '@/lib/wholesale';
 
 export default function sitemap() {
   const now = new Date();
@@ -45,5 +46,12 @@ export default function sitemap() {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...postRoutes];
+  const wholesaleRoutes = wholesaleSlugs().map((slug) => ({
+    url: `${SITE_URL}/wholesale/${slug}`,
+    lastModified: now,
+    changeFrequency: 'weekly',
+    priority: 0.85,
+  }));
+
+  return [...staticRoutes, ...wholesaleRoutes, ...categoryRoutes, ...postRoutes];
 }
