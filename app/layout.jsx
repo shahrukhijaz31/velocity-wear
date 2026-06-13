@@ -2,7 +2,6 @@ import './globals.css';
 import { Anton, Epilogue, Space_Grotesk } from 'next/font/google';
 import MotionProvider from '@/components/MotionProvider';
 import ScrollThreads from '@/components/ui/ScrollThreads';
-import AmbientBackground from '@/components/AmbientBackground';
 import { SITE_URL } from '@/lib/site';
 import { altLanguages, organizationLd, graph, abs } from '@/lib/seo';
 
@@ -83,7 +82,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Velocity Wear — Custom Apparel & Wholesale Towels',
     description:
-      'Premium custom apparel & wholesale towels. MOQ 20. Worldwide delivery incl. UK, USA & Canada.',
+      'Premium custom apparel & wholesale towels. MOQ 20. Worldwide delivery incl. UK, USA & Europe.',
     images: [abs('/og-image.png')],
   },
   robots: {
@@ -119,7 +118,7 @@ const jsonLd = graph([
     url: abs('/'),
     name: 'Velocity Wear',
     description:
-      'Premium custom apparel printing and wholesale towels, shipped worldwide including the UK, USA and Canada.',
+      'Premium custom apparel printing and wholesale towels, shipped worldwide including the UK, USA and Europe.',
     publisher: { '@id': `${SITE_URL}/#organization` },
     inLanguage: 'en',
     potentialAction: {
@@ -148,7 +147,6 @@ export default function RootLayout({ children }) {
         </noscript>
         <div className="page-bg" aria-hidden />
         <div className="page-grid" aria-hidden />
-        <AmbientBackground />
         <ScrollThreads />
         <script
           type="application/ld+json"

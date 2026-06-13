@@ -21,8 +21,8 @@ const COLS = [
     links: [
       { label: 'Wholesale', href: '/wholesale' },
       { label: 'Wholesale Towels', href: '/wholesale-towels' },
-      { label: 'Products', href: '/#products' },
       { label: 'Blogs', href: '/blogs' },
+      { label: 'About', href: '/about' },
       { label: 'Gallery', href: '/#gallery' },
     ],
   },

@@ -43,7 +43,7 @@ export const metadata = {
   openGraph: {
     title: 'Wholesale Towels for Gyms, Spas & Hotels | Velocity Wear',
     description:
-      'Premium combed-cotton towels in small, medium & large — custom embroidered. Bulk pricing from 50 pieces. Worldwide delivery incl. UK, USA & Canada.',
+      'Premium combed-cotton towels in small, medium & large — custom embroidered. Bulk pricing from 50 pieces. Worldwide delivery incl. UK, USA & Europe.',
     url: abs(PATH),
     siteName: 'Velocity Wear',
     type: 'website',

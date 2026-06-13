@@ -15,6 +15,7 @@ import Contact from '@/components/Contact';
 import FAQ from '@/components/FAQ';
 import Footer from '@/components/Footer';
 import FloatingWhatsApp from '@/components/FloatingWhatsApp';
+import AmbientBackground from '@/components/AmbientBackground';
 import { SITE_URL, FAQ_HOME } from '@/lib/site';
 import {
   abs, altLanguages, areaServed, breadcrumbLd, faqLd, graph,
@@ -63,6 +64,7 @@ export default function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <AmbientBackground />
       <ScrollProgress />
       <Navbar />
       <main>
