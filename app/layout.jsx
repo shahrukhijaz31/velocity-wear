@@ -1,6 +1,7 @@
 import './globals.css';
 import { Anton, Epilogue, Space_Grotesk } from 'next/font/google';
 import MotionProvider from '@/components/MotionProvider';
+import ScrollThreads from '@/components/ui/ScrollThreads';
 import { SITE_URL } from '@/lib/site';
 import { altLanguages, organizationLd, graph, abs } from '@/lib/seo';
 
@@ -141,6 +142,7 @@ export default function RootLayout({ children }) {
         </noscript>
         <div className="page-bg" aria-hidden />
         <div className="page-grid" aria-hidden />
+        <ScrollThreads />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

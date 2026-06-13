@@ -1,20 +1,45 @@
+'use client';
+
+import { useRef } from 'react';
 import Link from 'next/link';
+import { motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
 import { ArrowUpRight, Boxes, Briefcase, Clock, Crown, Droplets, Layers, Leaf, PenTool, Printer, Shirt, ShoppingBag } from 'lucide-react';
 import { CATEGORIES, formatDate } from '@/lib/blog';
 
 const ICONS = { ShoppingBag, Boxes, Shirt, Printer, Leaf, PenTool, Layers, Crown, Briefcase, Droplets };
+const MotionLink = motion(Link);
 
 export default function BlogCard({ post, featured = false }) {
   const cat = CATEGORIES[post.category] || { icon: 'ShoppingBag', accent: '#22e0ff' };
   const Icon = ICONS[cat.icon] || ShoppingBag;
 
-  return (
-    <Link
-      href={`/blogs/${post.slug}`}
-      className={`group glass relative flex flex-col overflow-hidden rounded-3xl border border-white/10 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-glow/40 sm:p-7 ${
-        featured ? 'lg:flex-row lg:items-stretch lg:gap-8' : ''
-      }`}
-    >
+  const reduce = useReducedMotion();
+  const ref = useRef(null);
+  const rx = useMotionValue(0);
+  const ry = useMotionValue(0);
+  const srx = useSpring(rx, { stiffness: 200, damping: 18 });
+  const sry = useSpring(ry, { stiffness: 200, damping: 18 });
+
+  const onMove = (e) => {
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    ry.set(x * 12); // ±6°
+    rx.set(-y * 12);
+  };
+  const reset = () => {
+    rx.set(0);
+    ry.set(0);
+  };
+
+  const base = `group glass relative flex flex-col overflow-hidden rounded-3xl border border-white/10 p-6 transition-colors duration-300 hover:border-cyan-glow/40 sm:p-7 ${
+    featured ? 'lg:flex-row lg:items-stretch lg:gap-8' : ''
+  }`;
+
+  const inner = (
+    <>
       {/* Accent glow that follows the category colour */}
       <span
         aria-hidden
@@ -67,6 +92,29 @@ export default function BlogCard({ post, featured = false }) {
           </span>
         </div>
       </div>
-    </Link>
+    </>
+  );
+
+  if (reduce) {
+    return (
+      <Link href={`/blogs/${post.slug}`} className={`${base} hover:-translate-y-1`}>
+        {inner}
+      </Link>
+    );
+  }
+
+  return (
+    <MotionLink
+      ref={ref}
+      href={`/blogs/${post.slug}`}
+      onMouseMove={onMove}
+      onMouseLeave={reset}
+      style={{ rotateX: srx, rotateY: sry, transformPerspective: 1000 }}
+      whileHover={{ y: -6 }}
+      transition={{ type: 'spring', stiffness: 200, damping: 22 }}
+      className={`${base} will-change-transform [transform-style:preserve-3d]`}
+    >
+      {inner}
+    </MotionLink>
   );
 }

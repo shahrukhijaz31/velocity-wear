@@ -17,16 +17,19 @@ export default function Reveal({
   direction = 'up',
   amount = 0.3,
   as = 'div',
+  depth = false,
 }) {
   const reduce = useReducedMotion();
   const offset = reduce ? DIRS.none : DIRS[direction] || DIRS.up;
+  const use3d = depth && !reduce;
   const MotionTag = motion[as] || motion.div;
 
   return (
     <MotionTag
       className={className}
-      initial={{ opacity: 0, ...offset }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      style={use3d ? { transformPerspective: 1000 } : undefined}
+      initial={{ opacity: 0, ...offset, ...(use3d ? { rotateX: -16, scale: 0.97 } : {}) }}
+      whileInView={{ opacity: 1, x: 0, y: 0, ...(use3d ? { rotateX: 0, scale: 1 } : {}) }}
       viewport={{ once: true, amount }}
       transition={{
         duration: 0.7,

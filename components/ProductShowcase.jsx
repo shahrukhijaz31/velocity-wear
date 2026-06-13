@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowUpRight, Check } from 'lucide-react';
 import GarmentMockup from './GarmentMockup';
 import SectionHeading from './ui/SectionHeading';
+import TiltCard from './ui/TiltCard';
 import { PRODUCTS } from '@/lib/site';
 
 const FEATURES = ['Print or Embroidery', 'Custom Branding', 'MOQ 20 pcs'];
@@ -26,6 +27,7 @@ export default function ProductShowcase() {
         <div className="mt-14 grid items-center gap-8 lg:grid-cols-[1.3fr_1fr]">
           {/* Stage */}
           <div className="group relative order-2 lg:order-1">
+            <TiltCard max={8} scale={1.01} className="relative">
             <div
               className="relative overflow-hidden rounded-[2rem] glass-strong p-6 sm:p-10"
               style={{ boxShadow: `0 30px 90px -30px ${product.accent}66` }}
@@ -91,6 +93,7 @@ export default function ProductShowcase() {
                 </a>
               </div>
             </div>
+            </TiltCard>
           </div>
 
           {/* Selector */}

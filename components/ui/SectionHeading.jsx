@@ -22,7 +22,7 @@ export default function SectionHeading({
           </span>
         </Reveal>
       )}
-      <Reveal delay={0.06}>
+      <Reveal delay={0.06} depth>
         <h2 className="font-display text-4xl uppercase leading-[0.95] tracking-tight text-white sm:text-5xl md:text-6xl">
           {title}{' '}
           {highlight && <span className="text-electric glow-text">{highlight}</span>}
