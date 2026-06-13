@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X, MessageCircle } from 'lucide-react';
-import Logo from './Logo';
+import LogoMark from './LogoMark';
 import ThemeToggle from './ThemeToggle';
 import { NAV_LINKS, BRAND } from '@/lib/site';
 
@@ -40,7 +40,7 @@ export default function Navbar() {
         }`}
       >
         <a href="/" className="flex items-center" aria-label="Velocity Wear home">
-          <Logo priority reveal className="h-16 sm:h-20" />
+          <LogoMark className="h-16 sm:h-20" />
         </a>
 
         <ul className="hidden items-center gap-1 lg:flex">

@@ -1,7 +1,7 @@
 'use client';
 
 import { Instagram, MessageCircle, Mail, ArrowUp } from 'lucide-react';
-import Logo from './Logo';
+import LogoMark from './LogoMark';
 import { BRAND, NAV_LINKS } from '@/lib/site';
 
 const COLS = [
@@ -38,7 +38,7 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <Logo reveal className="h-24" />
+            <LogoMark className="h-24" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-slate-400">
               {BRAND.tagline} — premium custom apparel printing & manufacturing for brands that
               refuse to blend in. MOQ {BRAND.moq} pieces.
