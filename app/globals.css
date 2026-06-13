@@ -42,33 +42,34 @@
 }
 
 html.light {
-  --bg: #eef1f8;
-  --fg: #0c1424;
+  --bg: #f3f6fc;
+  --fg: #0b1322;
 
-  --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.62));
-  --glass-strong-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(235, 240, 250, 0.88));
-  --glass-border: rgba(12, 20, 36, 0.1);
+  --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.8));
+  --glass-strong-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(236, 241, 251, 0.9));
+  --glass-border: rgba(20, 33, 61, 0.1);
 
-  --chip-bg: rgba(12, 20, 36, 0.04);
-  --chip-border: rgba(12, 20, 36, 0.12);
+  --chip-bg: rgba(20, 33, 61, 0.045);
+  --chip-border: rgba(20, 33, 61, 0.12);
 
-  --ghost-bg: rgba(12, 20, 36, 0.03);
-  --ghost-border: rgba(12, 20, 36, 0.16);
+  --ghost-bg: rgba(20, 33, 61, 0.035);
+  --ghost-border: rgba(20, 33, 61, 0.16);
 
-  --scrollbar-track: #e4e9f3;
+  --scrollbar-track: #e6ebf5;
 
   --page-bg:
-    radial-gradient(60% 50% at 80% -5%, rgba(34, 224, 255, 0.12), transparent 60%),
-    radial-gradient(55% 45% at 5% 10%, rgba(31, 95, 255, 0.12), transparent 55%),
-    radial-gradient(50% 50% at 50% 110%, rgba(47, 123, 255, 0.1), transparent 60%),
-    #eef1f8;
-  --grid-line: rgba(12, 20, 36, 0.05);
+    radial-gradient(70% 55% at 50% -12%, rgba(255, 255, 255, 0.9), transparent 60%),
+    radial-gradient(55% 50% at 84% 0%, rgba(34, 224, 255, 0.16), transparent 60%),
+    radial-gradient(50% 45% at 4% 8%, rgba(47, 123, 255, 0.14), transparent 55%),
+    radial-gradient(55% 50% at 50% 110%, rgba(31, 95, 255, 0.12), transparent 60%),
+    linear-gradient(180deg, #f8fafe 0%, #eef2fb 55%, #e8eef8 100%);
+  --grid-line: rgba(20, 33, 61, 0.045);
 
   --hero-vignette: radial-gradient(
-    60% 50% at 50% 40%,
-    rgba(238, 241, 248, 0.12),
-    rgba(238, 241, 248, 0.6) 72%,
-    rgba(238, 241, 248, 0.93)
+    62% 52% at 50% 38%,
+    rgba(247, 249, 253, 0.05),
+    rgba(243, 246, 252, 0.55) 70%,
+    rgba(238, 242, 251, 0.92)
   );
 }
 
@@ -257,6 +258,18 @@ html.light .text-slate-400\/70 { color: #586173; }
 html.light .text-slate-500 { color: #6b7488; }
 html.light .text-gradient {
   background-image: linear-gradient(120deg, #0c1424 0%, #1f5fff 60%, #22e0ff 100%);
+}
+/* Deeper electric gradient so accent text keeps contrast on light surfaces */
+html.light .text-electric {
+  background-image: linear-gradient(120deg, #0b9fd0, #2e7bff, #1f5fff);
+}
+
+/* Light mode needs elevation (glow does not read on light) — give glass depth */
+html.light .glass {
+  box-shadow: 0 12px 34px -20px rgba(20, 33, 61, 0.28);
+}
+html.light .glass-strong {
+  box-shadow: 0 20px 56px -26px rgba(20, 33, 61, 0.32);
 }
 
 /* Surfaces — white overlays become subtle dark overlays */
