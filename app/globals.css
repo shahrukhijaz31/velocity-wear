@@ -304,6 +304,56 @@ html.light .divide-white\/10 > :not([hidden]) ~ :not([hidden]) {
 /* Form placeholders */
 html.light ::placeholder { color: #8a93a5; }
 
+/* ----------------------------------------------------------------- */
+/*  CMS PROSE — styles HTML written in the admin blog editor           */
+/* ----------------------------------------------------------------- */
+.cms-prose {
+  color: rgba(234, 240, 255, 0.85);
+  font-size: 15px;
+  line-height: 1.75;
+}
+.cms-prose > :first-child { margin-top: 0; }
+.cms-prose h2 {
+  font-family: var(--font-anton), Impact, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  font-size: 1.75rem;
+  line-height: 1.15;
+  color: #fff;
+  margin: 2.5rem 0 0;
+}
+.cms-prose h3 {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #fff;
+  margin: 2rem 0 0;
+}
+.cms-prose p { margin-top: 1.15rem; }
+.cms-prose ul,
+.cms-prose ol { margin-top: 1.15rem; padding-left: 1.4rem; }
+.cms-prose ul { list-style: disc; }
+.cms-prose ol { list-style: decimal; }
+.cms-prose li { margin-top: 0.5rem; }
+.cms-prose li::marker { color: #22e0ff; }
+.cms-prose a { color: #22e0ff; text-decoration: underline; text-underline-offset: 2px; }
+.cms-prose strong { color: #fff; font-weight: 700; }
+.cms-prose blockquote {
+  margin: 1.6rem 0 0;
+  padding: 1rem 1.25rem;
+  border-left: 2px solid rgba(34, 224, 255, 0.6);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 0.75rem;
+  font-style: italic;
+  color: #eaf0ff;
+}
+.cms-prose img { border-radius: 0.75rem; margin-top: 1.4rem; max-width: 100%; height: auto; }
+
+html.light .cms-prose { color: #3a4254; }
+html.light .cms-prose h2,
+html.light .cms-prose h3,
+html.light .cms-prose strong { color: #0c1424; }
+html.light .cms-prose blockquote { color: #0c1424; background: rgba(12, 20, 36, 0.04); }
+
 /* Logo — pale-cyan wordmark; darken & saturate so it stays legible on light */
 .site-logo {
   filter: drop-shadow(0 0 14px rgba(34, 224, 255, 0.28));

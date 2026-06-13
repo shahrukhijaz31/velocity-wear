@@ -5,9 +5,13 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import Link from 'next/link';
 import Reveal from '@/components/ui/Reveal';
 import BlogSearch from '@/components/BlogSearch';
-import { CATEGORIES, categorySlug, getAllCategories, getAllPosts } from '@/lib/blog';
+import { CATEGORIES, categorySlug } from '@/lib/blog';
+import { getMergedCategories, getMergedPosts } from '@/lib/posts';
 import { SITE_URL } from '@/lib/site';
 import { altLanguages } from '@/lib/seo';
+
+// Revalidate so newly published CMS posts appear without a redeploy.
+export const revalidate = 60;
 
 export const metadata = {
   title: 'Blogs — Custom Apparel, Hoodies & Ecommerce Insights',
@@ -32,8 +36,9 @@ export const metadata = {
   },
 };
 
-export default function BlogIndexPage() {
-  const posts = getAllPosts();
+export default async function BlogIndexPage() {
+  const posts = await getMergedPosts();
+  const categories = await getMergedCategories();
 
   // Trimmed, serializable list for the client-side search component.
   const cards = posts.map((p) => ({
@@ -97,7 +102,7 @@ export default function BlogIndexPage() {
         {/* Browse by category */}
         <Reveal className="mt-10">
           <div className="flex flex-wrap justify-center gap-2.5">
-            {getAllCategories().map((c) => {
+            {categories.map((c) => {
               const oc = CATEGORIES[c] || { accent: '#22e0ff' };
               return (
                 <Link

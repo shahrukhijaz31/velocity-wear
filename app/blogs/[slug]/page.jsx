@@ -12,19 +12,24 @@ import Reveal from '@/components/ui/Reveal';
 import BlogContent from '@/components/BlogContent';
 import BlogCard from '@/components/BlogCard';
 import {
-  BLOG_AUTHOR, CATEGORIES, categorySlug, formatDate, getAllPosts, getPostBySlug, getRelatedPosts,
+  BLOG_AUTHOR, CATEGORIES, categorySlug, formatDate, getAllPosts,
 } from '@/lib/blog';
+import { getMergedPost, getMergedRelated } from '@/lib/posts';
 import { BRAND, SITE_URL } from '@/lib/site';
 import { altLanguages } from '@/lib/seo';
 
 const ICONS = { ShoppingBag, Boxes, Shirt, Printer, Leaf, PenTool, Layers, Crown, Briefcase, Droplets };
 
+// ISR so published CMS posts appear without a redeploy.
+export const revalidate = 60;
+
+// Prebuild the static posts; published DB posts render on demand.
 export function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }) {
-  const post = getPostBySlug(params.slug);
+export async function generateMetadata({ params }) {
+  const post = await getMergedPost(params.slug);
   if (!post) return {};
   const url = `${SITE_URL}/blogs/${post.slug}`;
   return {
@@ -49,13 +54,13 @@ export function generateMetadata({ params }) {
   };
 }
 
-export default function BlogPostPage({ params }) {
-  const post = getPostBySlug(params.slug);
+export default async function BlogPostPage({ params }) {
+  const post = await getMergedPost(params.slug);
   if (!post) notFound();
 
   const cat = CATEGORIES[post.category] || { icon: 'ShoppingBag', accent: '#22e0ff' };
   const Icon = ICONS[cat.icon] || ShoppingBag;
-  const related = getRelatedPosts(post.slug, 3);
+  const related = await getMergedRelated(post.slug, 3);
   const url = `${SITE_URL}/blogs/${post.slug}`;
 
   const articleLd = {
@@ -166,9 +171,13 @@ export default function BlogPostPage({ params }) {
             aria-hidden
           />
 
-          {/* Body */}
+          {/* Body — CMS posts store HTML; static posts use structured blocks */}
           <Reveal delay={0.05} amount={0.05}>
-            <BlogContent blocks={post.content} />
+            {post.source === 'db' ? (
+              <div className="cms-prose" dangerouslySetInnerHTML={{ __html: post.body || '' }} />
+            ) : (
+              <BlogContent blocks={post.content} />
+            )}
           </Reveal>
         </article>
 

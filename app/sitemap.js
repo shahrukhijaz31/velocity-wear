@@ -1,8 +1,9 @@
 import { SITE_URL } from '@/lib/site';
-import { categorySlug, getAllCategories, getAllPosts } from '@/lib/blog';
+import { categorySlug } from '@/lib/blog';
+import { getMergedCategories, getMergedPosts } from '@/lib/posts';
 import { wholesaleSlugs } from '@/lib/wholesale';
 
-export default function sitemap() {
+export default async function sitemap() {
   const now = new Date();
 
   const staticRoutes = [
@@ -32,14 +33,14 @@ export default function sitemap() {
     },
   ];
 
-  const postRoutes = getAllPosts().map((post) => ({
+  const postRoutes = (await getMergedPosts()).map((post) => ({
     url: `${SITE_URL}/blogs/${post.slug}`,
     lastModified: new Date(post.date),
     changeFrequency: 'monthly',
     priority: 0.7,
   }));
 
-  const categoryRoutes = getAllCategories().map((category) => ({
+  const categoryRoutes = (await getMergedCategories()).map((category) => ({
     url: `${SITE_URL}/blogs/category/${categorySlug(category)}`,
     lastModified: now,
     changeFrequency: 'weekly',

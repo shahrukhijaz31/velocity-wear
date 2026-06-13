@@ -10,19 +10,27 @@ import FloatingWhatsApp from '@/components/FloatingWhatsApp';
 import Reveal from '@/components/ui/Reveal';
 import BlogCard from '@/components/BlogCard';
 import {
-  CATEGORIES, CATEGORY_INTRO, categorySlug, getAllCategories, getCategoryBySlug, getPostsByCategory,
+  CATEGORIES, CATEGORY_INTRO, categorySlug, getAllCategories,
 } from '@/lib/blog';
+import { getMergedByCategory, getMergedCategories } from '@/lib/posts';
 import { SITE_URL } from '@/lib/site';
 import { altLanguages } from '@/lib/seo';
 
 const ICONS = { ShoppingBag, Boxes, Shirt, Printer, Leaf, PenTool, Layers, Crown, Briefcase, Droplets };
+
+export const revalidate = 60;
+
+// Resolve a category name from its slug against all known categories.
+function resolveCategory(slug) {
+  return Object.keys(CATEGORIES).find((c) => categorySlug(c) === slug) || null;
+}
 
 export function generateStaticParams() {
   return getAllCategories().map((c) => ({ category: categorySlug(c) }));
 }
 
 export function generateMetadata({ params }) {
-  const category = getCategoryBySlug(params.category);
+  const category = resolveCategory(params.category);
   if (!category) return {};
   const url = `${SITE_URL}/blogs/category/${params.category}`;
   const intro = CATEGORY_INTRO[category] || `Guides on ${category.toLowerCase()} for custom apparel brands.`;
@@ -43,16 +51,16 @@ export function generateMetadata({ params }) {
   };
 }
 
-export default function CategoryPage({ params }) {
-  const category = getCategoryBySlug(params.category);
+export default async function CategoryPage({ params }) {
+  const category = resolveCategory(params.category);
   if (!category) notFound();
 
-  const posts = getPostsByCategory(category);
+  const posts = await getMergedByCategory(category);
   const cat = CATEGORIES[category] || { icon: 'ShoppingBag', accent: '#22e0ff' };
   const Icon = ICONS[cat.icon] || ShoppingBag;
   const intro = CATEGORY_INTRO[category] || `Guides on ${category.toLowerCase()}.`;
   const url = `${SITE_URL}/blogs/category/${params.category}`;
-  const others = getAllCategories().filter((c) => c !== category);
+  const others = (await getMergedCategories()).filter((c) => c !== category);
 
   const jsonLd = {
     '@context': 'https://schema.org',
