@@ -122,6 +122,11 @@ const jsonLd = graph([
       'Premium custom apparel printing and wholesale towels, shipped worldwide including the UK, USA and Canada.',
     publisher: { '@id': `${SITE_URL}/#organization` },
     inLanguage: 'en',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: { '@type': 'EntryPoint', urlTemplate: `${SITE_URL}/blogs?q={search_term_string}` },
+      'query-input': 'required name=search_term_string',
+    },
   },
 ]);
 

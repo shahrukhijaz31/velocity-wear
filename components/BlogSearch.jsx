@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Search, X } from 'lucide-react';
 import BlogCard from './BlogCard';
 
@@ -14,6 +14,13 @@ export default function BlogSearch({ posts = [] }) {
   const [query, setQuery] = useState('');
   const q = query.trim().toLowerCase();
   const searching = q.length > 0;
+
+  // Initialise from a ?q= URL param (enables the sitelinks SearchAction
+  // and makes searches shareable).
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get('q');
+    if (param) setQuery(param);
+  }, []);
 
   const filtered = useMemo(() => {
     if (!q) return posts;
